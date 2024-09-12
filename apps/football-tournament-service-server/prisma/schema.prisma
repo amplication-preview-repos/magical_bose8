@@ -1,0 +1,84 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Profile {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  about        String?
+  accountPhoto Json?
+  birthDate    DateTime?
+  blockedDate  DateTime?
+  createdAt    DateTime              @default(now())
+  deletedDate  DateTime?
+  dominantFoot EnumUserDominantFoot?
+  email        String?               @unique
+  firstName    String?
+  id           String                @id @default(cuid())
+  isBlocked    Boolean?
+  isDeleted    Boolean?
+  lastLogin    DateTime?
+  lastName     String?
+  password     String
+  physicalInfo Json?
+  profileType  EnumUserProfileType?
+  region       Json?
+  roles        Json
+  surname      String?
+  updatedAt    DateTime              @updatedAt
+  username     String                @unique
+}
+
+model Match {
+  createdAt  DateTime         @default(now())
+  dateTime   DateTime?
+  fieldField String?
+  id         String           @id @default(cuid())
+  region     Json?
+  status     EnumMatchStatus?
+  updatedAt  DateTime         @updatedAt
+}
+
+model FootballTeam {
+  captain         String?
+  captainId       Int?
+  createdAt       DateTime                    @default(now())
+  emblem          Json?
+  id              String                      @id @default(cuid())
+  name            String?
+  playerTeam      String?
+  teamDescription String?
+  teamLineup      EnumFootballTeamTeamLineup?
+  updatedAt       DateTime                    @updatedAt
+}
+
+enum EnumUserDominantFoot {
+  Option1
+}
+
+enum EnumUserProfileType {
+  Option1
+}
+
+enum EnumMatchStatus {
+  Option1
+}
+
+enum EnumFootballTeamTeamLineup {
+  Option1
+}
